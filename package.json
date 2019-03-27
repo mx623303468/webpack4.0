@@ -1,0 +1,26 @@
+{
+  "name": "webpack4.0",
+  "version": "1.0.0",
+  "description": "webpack",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mx623303468/webpack4.0.git"
+  },
+  "keywords": [],
+  "author": "YinXiaobo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mx623303468/webpack4.0/issues"
+  },
+  "homepage": "https://github.com/mx623303468/webpack4.0#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "main": "webpack.config.js",
+  "dependencies": {}
+}
