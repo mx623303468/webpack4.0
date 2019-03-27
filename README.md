@@ -106,6 +106,8 @@ document.body.appendChild(component());
 
 执行 `npx webapck` , 打包成功。
 
+> 如果要指定自定义的配置文件 ，使用 `npx webpack --config 文件名称`
+
 ```s
 PS D:\webpack4.0> npx webpack
 Hash: 0776a30513f44596f94b
