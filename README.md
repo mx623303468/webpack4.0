@@ -1,55 +1,17 @@
-在说 webpack 之前，我们先来回顾一下原始的网页开发是什么样的。
+webpack 的官方定义是一个模块打包工具，不是 js 的翻译器
 
-1. 新建项目 `demo`
-2. `demo > index.html`
-    ```html
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>这是最原始的网页开发</title>
-    </head>
-    <body>
-        <p>这是网页内容</p>
-        <div id="root"></div>
+> 本质上，webpack 是一个现代 JavaScript 应用程序的静态模块打包器(module bundler)。当 webpack 处理应用程序时，它会递归地构建一个依赖关系图(dependency graph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个 bundle。
 
-        <!-- 引入创建的 js 文件 -->
-        <script src="./index.js"></script>
-    </body>
-    </html>
-    ```
-3. `demo > index.js` 
+接上一章的内容，我们把代码使用模块化改造一下。
+
+1. `index.js`
     ```js
-    var dom = document.getElementById('root')
+    // ES Module 语法
+    import Header from './header'
 
-    var el = document.createElement('div')
-    el.innerText = '这是index.js'
-    dom.append(el)
+    // CommonJS 语法
+    var Footer = require('./footer')
 
-    var header = document.createElement('div')
-    header.innerText = 'header'
-    dom.append(header)
-
-    var footer = document.createElement('div')
-    footer.innerText = 'footer'
-    dom.append(footer)
-    ```
-
-在随着前端技术的进步，我们 js 文件越来越多的时候，这种面向过程的编码方式，就暴露了很多缺点， 杂乱，重复，不易维护。
-
-然后就通过 面向对象 的编程方式，来解决这些缺点。
-
-1. 把 `index.js` 拆分， `header，footer` 我们单独写一个文件。  
-    > demo 下面拆分成   
-      index.html  
-      index.js  
-      header.js  
-      footer.js  
-    
-2.  `demo > index.js` 
-    ```js
     var dom = document.getElementById('root')
 
     var el = document.createElement('div')
@@ -59,54 +21,56 @@
     new Header();
     new Footer();
     ```
-3. `demo > header.js` 
+2. `header.js`
     ```js
     function Header() {
-			var dom = document.getElementById('root')
-			var header = document.createElement('div')
+        var dom = document.getElementById('root')
+        var header = document.createElement('div')
 
-			header.innerText = '这是header.js'
+        header.innerText = '这是header.js'
 
-			dom.append(header)
+        dom.append(header)
     }
+
+    export default Header
     ```
-4. `demo > footer.js` 
-		```js
+3. `footer.js`
+    ```js
     function Footer() {
-			var dom = document.getElementById('root')
-			var footer = document.createElement('div')
+        var dom = document.getElementById('root')
+        var footer = document.createElement('div')
 
-			footer.innerText = '这是footer.js'
+        footer.innerText = '这是footer.js'
 
-			dom.append(footer)
-		}
+        dom.append(footer)
+    }
+
+    module.exports = Footer
     ```
-5. `demo > index.html`
-	```html
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<meta http-equiv="X-UA-Compatible" content="ie=edge">
-			<title>这是最原始的网页开发</title>
-	</head>
-	<body>
-			<p>这是网页内容</p>
-			<div id="root"></div>
-			<script src="./header.js"></script>
-			<script src="./footer.js"></script>
-			<script src="./index.js"></script>
-	</body>
-	</html>
-	```
-面向对象的编程方式虽然能复用，更易维护，但是又有了新的问题。
- - 会有依赖顺序，如果引入顺序错误的话，就出问题了。
- - js 文件数量多了，页面加载会变慢。
- - 错误追踪困难，代码不易读，不易维护。
 
-至此，模块化方案诞生了，解决了我们的困扰。
-AMD, CMD, ES Module
+这是我们再打开 `index.html` 文件，发现会报错，这些语法浏览器根本不识别。
+此时就需要 webpack 帮我们了。
 
-但是这些模块化的语法，浏览器是不能直接识别的，这时候 webpack 就登场了。
-webapck 会把这些语法，转换成浏览器支持的语法。
+然后，在我们的项目里，安装一下 webpack 打包一下。
+**(下一篇详细说明 webpack 的安装方式)**
+
+> 在开始之前，请确保安装了 Node.js 的最新版本。使用 Node.js 最新的长期支持版本(LTS - Long Term Support)，是理想的起步。使用旧版本，你可能遇到各种问题，因为它们可能缺少 webpack 功能以及/或者缺少相关 package 包
+
+1. 在项目根目录执行 `npm init` 生成 `pack.json`
+
+2. 执行 `npm install -D webpack webpack-cli`
+
+3. 安装完成后， 执行 `npx webpack index.js` 进行打包
+
+4. 打包完成后，发现根目录下多了一个 `dist` 目录， 里面有一个 `main.js`，这个就是打包好的 js 代码。
+
+5. 此时，打开 `index.html` 文件，引入打包好的 `main.js` 文件。 打开页面，发现执行成功了。
+
+
+**最初，webpack只能打包 javascript 文件，发展到现在，已经不仅仅能打包js文件，还能打包 css, 图片等等各种类型的文件**
+
+至此，已经明确了 webpack 是一个模块打包工具的概念。
+
+具体请阅读 `webapck 官网 >>> DOCUMENTATION >>> CONCEPTS >>> Modules`
+
+模块化的语法，请阅读`webapck 官网 >>> DOCUMENTATION >>> API >>> Modules`

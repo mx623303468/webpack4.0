@@ -6,3 +6,5 @@ function Footer() {
 
 	dom.append(footer)
 }
+
+module.exports = Footer

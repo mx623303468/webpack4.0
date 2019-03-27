@@ -6,3 +6,5 @@ function Header() {
 
     dom.append(header)
 }
+
+export default Header
