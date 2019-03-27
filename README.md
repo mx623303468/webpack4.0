@@ -50,6 +50,8 @@ npm install --save-dev webpack@<version> # 安装指定版本
 
 **Node 8.2+ 版本提供的 npx 命令，可以运行在初始安装的 webpack 包(package)的 webpack 二进制文件**
 
+## 使用配置文件
+
 上面安装完成后，我们在项目目录新建一个 `webpack.config.js` 的配置文件，来管理 webpack 的配置项。
 
 ```js
@@ -126,3 +128,17 @@ PS D:\xyy\webpack4.0>
 ```
 
 浏览器打开 `index.html` ，成功输出 ‘hello webpack’
+
+
+## 配置 npm script 
+
+修改 `pack.json` 文件的 `scripts` 字段，来配置自己的 npm 命令。
+
+pack.json
+```json
+"scripts": {
+    "bundle": "webpack"
+  },
+```
+
+修改完毕后，命令行执行 `npm run bundle` 就相当于执行 `npx webapck`了，此命令会优先找项目中的配置，找不到才会去寻找全局配置。
