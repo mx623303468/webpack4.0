@@ -1,3 +1,7 @@
 .hello {
   color: red;
+  background: url('./avatar.jpg');
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
 }
