@@ -17,3 +17,10 @@ function component() {
 }
 
 document.body.appendChild(component());
+
+if (module.hot) {
+    module.hot.accept('./print.js', function () {
+        console.log('引入的 printMe 模块更新了！')
+        printMe()
+    })
+}
