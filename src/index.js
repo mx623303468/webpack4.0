@@ -1,6 +1,8 @@
+import _ from 'lodash'
+
 function component() {
     var ele = document.createElement('div')
-    ele.innerHTML = '<h1>hello webpack</h1>'
+    ele.innerHTML = _.join(['Hello', 'webpack'], ' ')
 
     return ele;
 }

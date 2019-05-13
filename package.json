@@ -22,5 +22,7 @@
     "webpack-cli": "^3.3.0"
   },
   "main": "webpack.config.js",
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
 }
