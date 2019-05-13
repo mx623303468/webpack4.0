@@ -16,11 +16,16 @@ function component() {
     return ele;
 }
 
-document.body.appendChild(component());
+let ele = component()
+document.body.appendChild(ele)
+
 
 if (module.hot) {
     module.hot.accept('./print.js', function () {
         console.log('引入的 printMe 模块更新了！')
-        printMe()
+        document.body.removeChild(ele)
+        ele = component()
+
+        document.body.appendChild(ele)
     })
 }
