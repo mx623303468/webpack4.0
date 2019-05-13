@@ -1,32 +1,18 @@
-import _ from 'lodash'
-import printMe from './print';
-import style  from './style.css'
+// import _ from 'lodash'
+// import printMe from './print';
+import { cube } from './math';
+// import style  from './style.css'
 
 function component() {
-    var ele = document.createElement('div')
-    var btn = document.createElement('button')
+    var ele = document.createElement('pre')
 
-    ele.innerHTML = _.join(['Hello', 'webpack'], ' ')
-
-    btn.innerHTML = '点击这里，然后查看 console'
-    btn.onclick = printMe
-
-    ele.appendChild(btn)
+    ele.innerHTML = [
+        'hello webpack!',
+        '5 的立方是：' + cube(5)
+    ].join('\n\n')
 
 
     return ele;
 }
 
-let ele = component()
-document.body.appendChild(ele)
-
-
-if (module.hot) {
-    module.hot.accept('./print.js', function () {
-        console.log('引入的 printMe 模块更新了！')
-        document.body.removeChild(ele)
-        ele = component()
-
-        document.body.appendChild(ele)
-    })
-}
+document.body.appendChild(component())
