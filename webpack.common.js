@@ -1,25 +1,16 @@
-const path = require('path');
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack')
 
 module.exports = {
-  mode:'development',
   entry: {
     app: './src/index.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    hot: true
+    another: './src/another-module.js'
   },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: './'
-  },
-  optimization: {
-    usedExports: true
   },
   module: {
     rules: [
@@ -32,9 +23,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: '管理输出',
-      appMountId: 'app'
-    }),
-    new webpack.HotModuleReplacementPlugin()
+      title: 'Webpack 4.x 学习',
+      template: 'index.html'
+    })
   ]
-};
+}
